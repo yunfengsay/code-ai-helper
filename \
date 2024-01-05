@@ -1,0 +1,15 @@
+from langchain.llms import Ollama
+from langchain.embeddings import OllamaEmbeddings
+from langchain.vectorstores import Chrome
+
+ollama = Ollama(model="zephyr")
+print(ollama('hello'))
+
+loader = PyPDFLoader('~/Desktop/UnderstandingDeepLearning_24_12_23_C.pdf')
+documents = loader.load()
+text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+texts = text_splitter.split_documents(documents)
+
+embeddings = OllamaEmbeddings()
+db = Chroma.from_documents(texts, embedddings)
+
